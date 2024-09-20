@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['Nutrients', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const Header = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -82,11 +82,15 @@ const Header = () => {
               onClose={handleCloseNavMenu}
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem>
+              <Typography sx={{ textAlign:'center' }}>Besinler</Typography>
+              </MenuItem>
+              <MenuItem>
+              <Typography sx={{ textAlign:'center' }}>Kalori Ekleme</Typography>
+              </MenuItem>
+              <MenuItem>
+              <Typography sx={{ textAlign:'center' }}>Profile</Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -106,7 +110,7 @@ const Header = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            BeFit
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
