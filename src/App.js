@@ -1,14 +1,14 @@
 import './App.css';
 import {BrowserRouter, Routes, Router, Route} from 'react-router-dom'
 import Header from './components/header/Header';
-import Home from './pages/home/Home';
 import Footer from './components/footer/Footer';
+import Nutrients from './pages/nutrients/Nutrients';
 
 function App() {
   return (
     <>
       <Header />
-      <Home />
+      <Nutrients />
       <Footer />
       </>
   );

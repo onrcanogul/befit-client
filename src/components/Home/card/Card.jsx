@@ -28,7 +28,7 @@ const CustomCard = ({src, alt, title, description, buttonColor, buttonText}) => 
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color={buttonColor}>
+        <Button size="small" variant='outlined' color={buttonColor}>
           {buttonText}
         </Button>
       </CardActions>
