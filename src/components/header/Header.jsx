@@ -12,12 +12,14 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import CalorieBasketDialog from '../dialogs/CalorieBasketDialog/CalorieBasketDialog';
 
 const pages = ['Nutrients', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const Header = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const [openCBDialog, setCBDialog] = React.useState(false);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -28,7 +30,11 @@ const Header = () => {
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
+        setCBDialog(true);
     };
+    const handleCloseCBDialog = () => {
+      setCBDialog(false);
+    }
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
@@ -122,6 +128,12 @@ const Header = () => {
                 {page}
               </Button>
             ))}
+                <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                Günlük Kalorilerim
+              </Button>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -150,11 +162,16 @@ const Header = () => {
                   <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
                 </MenuItem>
               ))}
+              <MenuItem>
+              <Typography sx={{textAlign: 'center'}}>Günlük Kalori</Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>)
+      <CalorieBasketDialog open={openCBDialog} onClose={handleCloseCBDialog}/>
+    </AppBar>
+    )
 
 }
 
