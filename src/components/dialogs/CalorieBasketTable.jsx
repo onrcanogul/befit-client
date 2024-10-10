@@ -6,21 +6,55 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { getFoods } from '../../services/nutrientService';
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+
+
+
+
 export default function DenseTable() {
 
-    const handleClick = () => {
+  const [data, setData] = React.useState(null);
+  const [rows, setRows] = React.useState([
+    { name: '', calories: 0, fat: 0, carbs: 0, protein: 0 }
+  ]);
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        debugger;
+        const data = await getFoods(1, 50);
+        setData(data);
+
+        const newRows = data.data.map(item =>
+          createData(
+            item.name,
+            item.properties.calories,
+            item.properties.fat,
+            item.properties.carbohydrate,
+            item.properties.protein
+          )
+        );
+
+        setRows(newRows);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+    function createData(name, calories, fat, carbs, protein) {
+      return { name, calories, fat, carbs, protein };
     }
+    console.log(rows);
+  }, []);
+
+
+
+
+
+
+
+
 
   return (
     <TableContainer component={Paper}>
@@ -28,8 +62,9 @@ export default function DenseTable() {
         <TableHead>
           <TableRow>
             <TableCell>Nutrient</TableCell>
-            <TableCell align="right">Gramaj</TableCell>
+            <TableCell align="right">Grammage</TableCell>
             <TableCell align="right">Calories&nbsp;(100g)</TableCell>
+            <TableCell align="right">Calories</TableCell>
             <TableCell align="right">Fat&nbsp;(g)</TableCell>
             <TableCell align="right">Carbs&nbsp;(g)</TableCell>
             <TableCell align="right">Protein&nbsp;(g)</TableCell>
@@ -44,7 +79,8 @@ export default function DenseTable() {
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="right" id='firstCell' onClick={handleClick}>0</TableCell>
+              <TableCell align="right"><input style={{ textAlign: 'center', width: '50%' }} type="number" /></TableCell>
+              <TableCell align="right">{row.name}</TableCell>
               <TableCell align="right">{row.calories}</TableCell>
               <TableCell align="right">{row.fat}</TableCell>
               <TableCell align="right">{row.carbs}</TableCell>
