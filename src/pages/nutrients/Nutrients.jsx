@@ -3,8 +3,18 @@ import NutrientFilter from '../../components/nutrients/filter';
 import CardNutrients from '../../components/nutrients/cardNutrients';
 import { Grid } from '@mui/material';
 import { Alert } from '@mui/material';
+import { getNutrients } from '../../services/nutrientService';
 const Nutrients = () => {
-    // var nutrients an array
+
+    const [nutrients, setNutrients] = React.useState([]);
+    React.useEffect(() => {
+        const fetchData = async () => {
+            const nutrients = await getNutrients(1, 50);
+            setNutrients(nutrients.data);
+        }
+        fetchData();
+    }, []);
+
     return (
         <div>
             <NutrientFilter selectLabel={'Category'} textLabel={'Nutrient'} />
@@ -14,8 +24,12 @@ const Nutrients = () => {
                 </Grid>
             </Grid>
             {/* iterate array */}
-            <CardNutrients />
-
+            <Grid container spacing={2} alignItems="center" justifyContent={'center'}>
+                {nutrients.map((n, index) => {
+                    console.log(n);
+                    return <CardNutrients name={n.name} description={n.description} />
+                })}
+            </Grid>
         </div>
     )
 

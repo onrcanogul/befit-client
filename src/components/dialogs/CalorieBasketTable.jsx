@@ -6,7 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { getFoods } from '../../services/nutrientService';
+import { getFoods, getNutrients } from '../../services/nutrientService';
 
 
 
@@ -16,46 +16,29 @@ export default function DenseTable() {
 
   const [data, setData] = React.useState(null);
   const [rows, setRows] = React.useState([
-    { name: '', calories: 0, fat: 0, carbs: 0, protein: 0 }
   ]);
-  React.useEffect(() => {
-    const fetchData = async () => {
-      try {
-        debugger;
-        const data = await getFoods(1, 50);
-        setData(data);
-
-        const newRows = data.data.map(item =>
-          createData(
-            item.name,
-            item.properties.calories,
-            item.properties.fat,
-            item.properties.carbohydrate,
-            item.properties.protein
-          )
-        );
-
-        setRows(newRows);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-    function createData(name, calories, fat, carbs, protein) {
-      return { name, calories, fat, carbs, protein };
-    }
-    console.log(rows);
-  }, []);
-
-
-
-
-
-
-
-
-
+  // React.useEffect(() => {
+  //   const fetchData = async () => {
+  //     const data = await getNutrients(1, 50);
+  //     setData(data);
+  //
+  //     const newRows = data.data.map(item =>
+  //       createData(
+  //         item.name,
+  //         item.properties.fat,
+  //         item.properties.carbohydrate,
+  //         item.properties.protein
+  //       )
+  //     );
+  //     setRows(newRows);
+  //   };
+  //
+  //   fetchData();
+  //   function createData(name, calories, fat, carbs, protein) {
+  //     return { name, calories, fat, carbs, protein };
+  //   }
+  //   console.log(rows);
+  // }, []);
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -71,7 +54,7 @@ export default function DenseTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {rows.length > 0 ? rows.map((row) => (
             <TableRow
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -81,12 +64,12 @@ export default function DenseTable() {
               </TableCell>
               <TableCell align="right"><input style={{ textAlign: 'center', width: '50%' }} type="number" /></TableCell>
               <TableCell align="right">{row.name}</TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
+              <TableCell align="right">100</TableCell>
               <TableCell align="right">{row.fat}</TableCell>
               <TableCell align="right">{row.carbs}</TableCell>
               <TableCell align="right">{row.protein}</TableCell>
             </TableRow>
-          ))}
+          )) : ""}
         </TableBody>
       </Table>
     </TableContainer>

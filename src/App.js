@@ -5,6 +5,7 @@ import Footer from './components/footer/Footer';
 import Nutrients from './pages/nutrients/Nutrients';
 import Profile from './pages/profile/profile';
 import Home from './pages/home/Home';
+import {Auth} from "./pages/auth/auth";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/nutrients' element={<Nutrients />} />
+          <Route path='/auth' element={<Auth />} />
         </Routes>
         </>
   );

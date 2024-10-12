@@ -4,6 +4,7 @@ import { API_URL, deleteRequest, putRequest } from "./baseService"
 
 export const getCategories = async () => {
     const response = await axios.get(`${API_URL}/category`);
+    console.log(response);
     return response.data;
 }
 export const getCategoriesById = async (id) => {

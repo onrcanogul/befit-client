@@ -10,6 +10,7 @@ import Checkbox from '@mui/material/Checkbox';
 import ListItemText from '@mui/material/ListItemText';
 import Button from '@mui/material/Button';
 import { Alert } from '@mui/material';
+import { getCategories } from '../../services/categoryService';
 
 
 
@@ -25,28 +26,48 @@ const MenuProps = {
 };
 
 const names = [
-    'Oliver Hansen',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
-  ];
-const NutrientFilter = ({textLabel, selectLabel}) => {
-    const [personName, setPersonName] = React.useState([]);
+  'Oliver Hansen',
+  'Van Henry',
+  'April Tucker',
+  'Ralph Hubbard',
+  'Omar Alexander',
+  'Carlos Abbott',
+  'Miriam Wagner',
+  'Bradley Wilkerson',
+  'Virginia Andrews',
+  'Kelly Snyder',
+];
+const NutrientFilter = ({ textLabel, selectLabel }) => {
+  const [term, setTerm] = React.useState("");
+  const [selectedCategories, setSelectedCategories] = React.useState([]);
+  const [categories, setCategories] = React.useState([{ name: "", description: "", foods: [], drinks: [], images: [], id: "", createdDate: "", updatedDate: "" }]);
 
-    const handleChange = (event) => {
-      const {
-        target: { value },
-      } = event;
-      setPersonName(
-        typeof value === 'string' ? value.split(',') : value,
-      );
-    };
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const categoriesData = await getCategories();
+      console.log(categoriesData);
+      setCategories(categoriesData.data);
+    }
+    fetchData();
+  }, [])
+
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedCategories(
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
+  const handleFilterClick = () => {
+    const selectedCategoryIds = categories.filter((category) => selectedCategories.includes(category.name)).map((category) => category.id);
+    console.log(selectedCategoryIds);
+    console.log(term);
+  }
+  const handleInputChange = (event) => {
+    setTerm(event.target.value);
+    console.log(term);
+  }
 
   return <div className='quote' style={{ margin: '5px' }}>
     <Grid container spacing={2} alignItems={'center'}>
@@ -60,6 +81,8 @@ const NutrientFilter = ({textLabel, selectLabel}) => {
           defaultValue="Small"
           color='success'
           style={{ width: '100%' }}
+          value={term}
+          onChange={handleInputChange}
         />
       </Grid>
       <Grid item xs={4} sm={2} md={4}>
@@ -70,7 +93,7 @@ const NutrientFilter = ({textLabel, selectLabel}) => {
             labelId="demo-multiple-checkbox-label"
             id="demo-multiple-checkbox"
             multiple
-            value={personName}
+            value={selectedCategories}
             onChange={handleChange}
             input={<OutlinedInput label={selectLabel} />}
             renderValue={(selected) => selected.join(', ')}
@@ -78,17 +101,17 @@ const NutrientFilter = ({textLabel, selectLabel}) => {
             color='success'
             style={{ width: '100%' }}
           >
-            {names.map((name) => (
-              <MenuItem key={name} value={name}>
-                <Checkbox checked={personName.includes(name)} color='success' />
-                <ListItemText primary={name} />
+            {categories.map((category) => (
+              <MenuItem key={category.id} value={category.name}>
+                <Checkbox checked={selectedCategories.includes(category.name)} color='success' />
+                <ListItemText primary={category.name} />
               </MenuItem>
             ))}
           </Select>
         </FormControl>
       </Grid>
       <Grid item xs={2} s={6} md={4}>
-        <Button color='success' variant='contained' style={{ width: '100%' }}>Filter</Button>
+        <Button color='success' variant='contained' style={{ width: '100%' }} onClick={handleFilterClick}>Filter</Button>
         <Button color='success' variant='outlined' style={{ width: '100%', marginTop: '5px' }}>Clear Filter</Button>
       </Grid>
     </Grid>

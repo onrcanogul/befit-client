@@ -1,7 +1,7 @@
 import axios from "axios";
-import { API_URL, deleteRequest, putRequest } from "./baseService"
+import { API_URL } from "./baseService"
 
-export const getFoods = async (page, size) => {
-    const response = await axios.get(`${API_URL}/food?Page=${page}&Size=${size}`);
+export const getNutrients = async (page, size) => {
+    const response = await axios.get(`${API_URL}/nutrient?Page=${page}&Size=${size}`);
     return response.data;
 }

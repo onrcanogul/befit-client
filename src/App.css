@@ -27,3 +27,11 @@
     align-items: center;
     margin-top: 5px;
 }
+.sticky-header {
+    position: sticky; /* Yapışkan pozisyon */
+    top: 0; /* Üst kenara yapıştır */
+    background-color: white; /* Arka plan rengi */
+    z-index: 1000; /* Diğer içeriklerin üstünde görünmesi için */
+    padding: 10px; /* İçerik için boşluk */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Gölge efekti (isteğe bağlı) */
+}
