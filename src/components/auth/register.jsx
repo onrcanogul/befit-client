@@ -3,10 +3,18 @@ import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import {register} from "../../services/authService";
 
 export const Register = () => {
     const [gender, setGender] = useState("");
     const [age, setAge] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [userName, setUserName] = useState("");
+    const [name, setName] = useState("");
+    const [surname, setSurname] = useState("");
+
 
     const handleGenderChange = (event) => {
         setGender(event.target.value);
@@ -15,6 +23,11 @@ export const Register = () => {
     const handleAgeChange = (event) => {
         setAge(event.target.value);
     };
+
+    const handleClick = async () => {
+        const response = await register(name, surname, age, userName, email, password, confirmPassword, gender);
+        return response.data;
+    }
 
     return (
         <div className={"quote"} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh', padding: '20px' }}>
@@ -34,12 +47,12 @@ export const Register = () => {
             >
                 <Typography variant={"h4"} style={{ marginBottom: "20px", color: "#2e7d32" }}>Register</Typography>
 
-                <TextField label="Name" color="success" fullWidth style={{ marginBottom: "15px" }} />
-                <TextField label="Surname" color="success" fullWidth style={{ marginBottom: "15px" }} />
-                <TextField label="Username" color="success" fullWidth style={{ marginBottom: "15px" }} />
-                <TextField label="Email" color="success" type="email" fullWidth style={{ marginBottom: "15px" }} />
-                <TextField label="Password" color="success" type="password" fullWidth style={{ marginBottom: "15px" }} />
-                <TextField label="Confirm Password" color="success" type="password" fullWidth style={{ marginBottom: "15px" }} />
+                <TextField label="Name" color="success" value={name} fullWidth style={{ marginBottom: "15px" }} onChange={(e) => setName(e.target.value)} />
+                <TextField label="Surname" color="success" value={surname} fullWidth style={{ marginBottom: "15px" }} onChange={(e) => setSurname(e.target.value)} />
+                <TextField label="Username" color="success" value={userName} fullWidth style={{ marginBottom: "15px" }} onChange={(e) => setUserName(e.target.value)} />
+                <TextField label="Email" color="success" type="email" value={email} fullWidth style={{ marginBottom: "15px" }} onChange={(e) => setEmail(e.target.value)} />
+                <TextField label="Password" color="success" type="password" value={password} fullWidth style={{ marginBottom: "15px" }} onChange={(e) => setPassword(e.target.value)} />
+                <TextField label="Confirm Password" color="success" type="password" value={confirmPassword} fullWidth style={{ marginBottom: "15px" }} onChange={(e) => setConfirmPassword(e.target.value)} />
 
                 <TextField
                     label="Age"
@@ -77,10 +90,11 @@ export const Register = () => {
                         color="success"
                         style={{
                             height: "3em",
-                            fontSize: "clamp(14px, 1vw, 16px)", // Responsive font-size
+                            fontSize: "clamp(14px, 1vw, 16px)",
                             flex: 1,
-                            marginRight: "10px", // Spacing between buttons
+                            marginRight: "10px",
                         }}
+                        onClick={handleClick}
                     >
                         Register
                     </Button>
@@ -89,7 +103,7 @@ export const Register = () => {
                         color="warning"
                         style={{
                             height: "3em",
-                            fontSize: "clamp(14px, 1vw, 16px)", // Responsive font-size
+                            fontSize: "clamp(14px, 1vw, 16px)",
                             flex: 1,
                         }}
                     >

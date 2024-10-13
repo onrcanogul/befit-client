@@ -3,8 +3,20 @@ import { FormControlLabel } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { useState } from "react";
+import { login } from "../../services/authService";
 
 export const Login = () => {
+    const [emailOrUsername, setEmailOrUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [rememberMe, setRememberMe] = useState(false);
+
+
+    const handleClick = async () => {
+        const response = await login(emailOrUsername, password, rememberMe);
+        return response.data;
+    }
+
     return (
         <div className={"quote"} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh', padding: '20px', backgroundColor: '#f4f4f4' }}>
             <div
@@ -29,17 +41,21 @@ export const Login = () => {
                         label="Email or Username"
                         color="success"
                         fullWidth
+                        value={emailOrUsername}
                         style={{ marginBottom: "15px" }}
+                        onChange={(e) => setEmailOrUsername(e.target.value)}
                     />
                     <TextField
                         label="Password"
                         color="success"
                         type="password"
+                        value={password}
                         fullWidth
                         style={{ marginBottom: "10px" }}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                     <FormControlLabel
-                        control={<Checkbox color="success" defaultChecked />}
+                        control={<Checkbox color="success" defaultChecked onChange={() => setRememberMe(!rememberMe)} />}
                         label="Remember Me"
                         style={{ marginBottom: "15px" }}
                     />
@@ -61,6 +77,7 @@ export const Login = () => {
                             flex: 1,
                             marginRight: "10px", // Spacing between buttons
                         }}
+                        onClick={handleClick}
                     >
                         Login
                     </Button>
