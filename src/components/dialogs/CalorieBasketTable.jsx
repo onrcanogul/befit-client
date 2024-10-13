@@ -7,37 +7,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+export default function DenseTable({ nutrients }) {
 
 
-
-
-export default function DenseTable() {
-
-  const [data, setData] = React.useState(null);
-  const [rows, setRows] = React.useState([
-  ]);
-  // React.useEffect(() => {
-  //   const fetchData = async () => {
-  //     const data = await getNutrients(1, 50);
-  //     setData(data);
-  //
-  //     const newRows = data.data.map(item =>
-  //       createData(
-  //         item.name,
-  //         item.properties.fat,
-  //         item.properties.carbohydrate,
-  //         item.properties.protein
-  //       )
-  //     );
-  //     setRows(newRows);
-  //   };
-  //
-  //   fetchData();
-  //   function createData(name, calories, fat, carbs, protein) {
-  //     return { name, calories, fat, carbs, protein };
-  //   }
-  //   console.log(rows);
-  // }, []);
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -53,20 +25,20 @@ export default function DenseTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.length > 0 ? rows.map((row) => (
+          {nutrients.length > 0 ? nutrients.map((row) => (
             <TableRow
-              key={row.name}
+              key={row.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                {row.nutrient.name}
               </TableCell>
-              <TableCell align="right"><input style={{ textAlign: 'center', width: '50%' }} type="number" /></TableCell>
-              <TableCell align="right">{row.name}</TableCell>
-              <TableCell align="right">100</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="right"><input style={{ textAlign: 'center', width: '50%' }} type="number" value={row.measure} /></TableCell>
+              <TableCell align="right">{row.nutrient.properties.calories * (100 / row.measure)}gr</TableCell>
+              <TableCell align="right">{row.nutrient.properties.calories}</TableCell>
+              <TableCell align="right">{row.nutrient.properties.fat}</TableCell>
+              <TableCell align="right">{row.nutrient.properties.carbohydrate}</TableCell>
+              <TableCell align="right">{row.nutrient.properties.protein}</TableCell>
             </TableRow>
           )) : ""}
         </TableBody>

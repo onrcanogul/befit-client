@@ -66,12 +66,12 @@ export const currentUserId = () => {
 
 
 export const refreshTokenLogin = () => {
-    axios.post(`${API_URL}/auth/refresh`, localStorage.getItem('refreshToken'))
+    axios.post(`${API_URL}/auth/refresh-token-login`, localStorage.getItem('refreshToken'))
         .then(response => {
             localStorage.setItem("accessToken", response.data.data.accessToken);
         })
         .catch(error => {
-            logout();
+            console.log(error);
         })
 }
 export const logout = () => {

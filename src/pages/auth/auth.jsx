@@ -14,12 +14,13 @@ export const Auth = () => {
 
     return (
         <div>
-            {isAuthenticated() ? <><Tabs value={value} color={"success"} onChange={handleChange}>
+            {isAuthenticated() === false ? <><Tabs value={value} color={"success"} onChange={handleChange}>
                 <Tab label="Login" icon={<LoginIcon />} color={"success"} />
                 <Tab label="Register" icon={<HowToRegIcon />} color={"success"} />
             </Tabs>
                 {value === 0 && <Login />}
-                {value === 1 && <Register />} </> : <Typography>You already logged in</Typography>} //will be styling
+                {value === 1 && <Register />} </> : <Typography>You already logged in</Typography>}
+            {/* //will be styling */}
 
         </div>
     );

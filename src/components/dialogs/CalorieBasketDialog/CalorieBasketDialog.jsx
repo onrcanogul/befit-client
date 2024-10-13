@@ -3,9 +3,23 @@ import { Button, Dialog, DialogContent, DialogTitle, DialogActions, Typography, 
 import CalorieBasketTable from '../CalorieBasketTable';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
+import { getBasket } from '../../../services/basketService';
+import { currentUserId } from '../../../services/authService';
 
 
 const CalorieBasketDialog = ({ open, onClose }) => {
+  const [data, setData] = React.useState(null);
+  const [basket, setBasket] = React.useState({ createdDate: new Date(), id: "", nutrients: [], totalCalorie: 0, totalCarb: 0, totalCholesterol: 0, totalFat: 0, totalMagnesium: 0, totalProtein: 0, totalSalt: 0, totalSodium: 0, totalSugar: 0, updatedDate: new Date(), userId: "" });
+  React.useEffect(() => {
+    const fetchData = async () => {
+      debugger;
+      console.log(currentUserId())
+      const response = await getBasket(currentUserId());
+      setBasket(response.data);
+    };
+
+    fetchData();
+  }, []);
   return (
     <div>
       <Dialog open={open} onClose={onClose} maxWidth={'xl'} fullWidth>
@@ -13,16 +27,16 @@ const CalorieBasketDialog = ({ open, onClose }) => {
           Günlük Kalori Miktarınızı Görebilirsiniz.
         </DialogTitle>
         <DialogContent>
-          <CalorieBasketTable />
+          <CalorieBasketTable nutrients={basket.nutrients} />
           <br />
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <Paper style={{ padding: 16, textAlign: 'center' }}>
                 <div>
-                  <Typography fontSize={'0.8em'}>Toplam Kalori : </Typography>
-                  <Typography fontSize={'0.8em'}>Toplam Karbonhidrat : </Typography>
-                  <Typography fontSize={'0.8em'}>Toplam Yağ : </Typography>
-                  <Typography fontSize={'0.8em'}>Toplam Protein : </Typography>
+                  <Typography fontSize={'0.8em'}>Toplam Kalori : {basket.totalCalorie} </Typography>
+                  <Typography fontSize={'0.8em'}>Toplam Karbonhidrat : {basket.totalCarb} </Typography>
+                  <Typography fontSize={'0.8em'}>Toplam Yağ : {basket.totalFat} </Typography>
+                  <Typography fontSize={'0.8em'}>Toplam Protein : {basket.totalProtein} </Typography>
                 </div>
               </Paper>
             </Grid>
