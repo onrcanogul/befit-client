@@ -4,6 +4,7 @@ import { useState } from "react";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import {register} from "../../services/authService";
+import {toast} from "material-react-toastify";
 
 export const Register = () => {
     const [gender, setGender] = useState("");
@@ -25,8 +26,7 @@ export const Register = () => {
     };
 
     const handleClick = async () => {
-        const response = await register(name, surname, age, userName, email, password, confirmPassword, gender);
-        return response.data;
+        await register(name, surname, age, userName, email, password, confirmPassword, gender);
     }
 
     return (

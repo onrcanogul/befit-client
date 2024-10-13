@@ -13,8 +13,7 @@ export const Login = () => {
 
 
     const handleClick = async () => {
-        const response = await login(emailOrUsername, password, rememberMe);
-        return response.data;
+        await login(emailOrUsername, password, rememberMe);
     }
 
     return (

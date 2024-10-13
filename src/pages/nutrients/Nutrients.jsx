@@ -4,8 +4,8 @@ import CardNutrients from '../../components/nutrients/cardNutrients';
 import { Grid } from '@mui/material';
 import { Alert } from '@mui/material';
 import { getNutrients } from '../../services/nutrientService';
-const Nutrients = () => {
 
+const Nutrients = () => {
     const [nutrients, setNutrients] = React.useState([]);
     React.useEffect(() => {
         const fetchData = async () => {
@@ -14,7 +14,6 @@ const Nutrients = () => {
         }
         fetchData();
     }, []);
-
     return (
         <div>
             <NutrientFilter selectLabel={'Category'} textLabel={'Nutrient'} />
