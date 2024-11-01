@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Dialog, DialogContent, DialogTitle, DialogActions, Typography, Grid, Paper } from '@mui/material'
-import CalorieBasketTable from '../CalorieBasketTable';
+import CalorieBasketTable from './CalorieBasketTable';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
 import { getBasket } from '../../../services/basketService';
@@ -10,14 +10,12 @@ import { currentUserId } from '../../../services/authService';
 const CalorieBasketDialog = ({ open, onClose }) => {
   const [data, setData] = React.useState(null);
   const [basket, setBasket] = React.useState({ createdDate: new Date(), id: "", nutrients: [], totalCalorie: 0, totalCarb: 0, totalCholesterol: 0, totalFat: 0, totalMagnesium: 0, totalProtein: 0, totalSalt: 0, totalSodium: 0, totalSugar: 0, updatedDate: new Date(), userId: "" });
+  const [userProperties, setUserProperties] = React.useState({ weight: 0, height: 0, fatRate: 0, suggestedFatRate: 0, suggestedWeight: 0, dailyCalories: 0, fatBurnCalories: 0, weightGainCalories: 0, maintenanceCalories: 0, activity: {}, bodyDecision: 0, neededProtein: 0, neededCarbohydrate: 0, neededFat: 0, userId: "" });
   React.useEffect(() => {
     const fetchData = async () => {
-      debugger;
-      console.log(currentUserId())
       const response = await getBasket(currentUserId());
       setBasket(response.data);
     };
-
     fetchData();
   }, []);
   return (

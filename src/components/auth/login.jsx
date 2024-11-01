@@ -11,7 +11,6 @@ export const Login = () => {
     const [password, setPassword] = useState("");
     const [rememberMe, setRememberMe] = useState(false);
 
-
     const handleClick = async () => {
         await login(emailOrUsername, password, rememberMe);
     }

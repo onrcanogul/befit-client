@@ -13,10 +13,11 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import CalorieBasketDialog from '../dialogs/CalorieBasketDialog/CalorieBasketDialog';
+import { useNavigate } from 'react-router-dom';
 
 const pages = ['Nutrients', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const Header = () => {
+  const navigator = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [openCBDialog, setCBDialog] = React.useState(false);
@@ -119,21 +120,19 @@ const Header = () => {
           BeFit
         </Typography>
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-          {pages.map((page) => (
-            <Button
-              key={page}
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: 'white', display: 'block' }}
-            >
-              {page}
-            </Button>
-          ))}
+          <Button
+            onClick={() => navigator("/nutrients")}
+            sx={{ my: 2, color: 'white', display: 'block' }}
+          >
+            Nutrients
+          </Button>
           <Button
             onClick={handleCloseNavMenu}
             sx={{ my: 2, color: 'white', display: 'block' }}
           >
-            Günlük Kalorilerim
+            My Daily Calories
           </Button>
+
         </Box>
         <Box sx={{ flexGrow: 0 }}>
           <Tooltip title="Open settings">
@@ -157,13 +156,11 @@ const Header = () => {
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >
-            {settings.map((setting) => (
-              <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
-              </MenuItem>
-            ))}
             <MenuItem>
-              <Typography sx={{ textAlign: 'center' }}>Günlük Kalori</Typography>
+              <Typography sx={{ textAlign: 'center' }}>Profile</Typography>
+            </MenuItem>
+            <MenuItem>
+              <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
             </MenuItem>
           </Menu>
         </Box>

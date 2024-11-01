@@ -6,17 +6,23 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
+import { useNavigate } from 'react-router-dom';
+import CalorieBasketDialog from '../../dialogs/CalorieBasketDialog/CalorieBasketDialog';
+import NutrientDetailsDialog from '../../dialogs/NutrientDetailsDialog/NutrientDetailsDialog'
 
-const CustomCard = ({src, alt, title, description, buttonColor, buttonText}) => {
+const CustomCard = ({ src, alt, title, description, buttonColor, buttonText, link, openModal }) => {
+  const navigate = useNavigate();
+  const [openDetails, setOpenDetails] = React.useState(false)
+
   return (
-    <Card sx={{ width:'100%'}}>
+    <Card sx={{ width: '100%' }}>
       <CardActionArea>
         <CardMedia
           component="img"
           height="140"
           image={src}
           alt={alt}
-          sx={{ objectFit: 'cover', height:"20em" }} 
+          sx={{ objectFit: 'cover', height: "20em" }}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -28,10 +34,11 @@ const CustomCard = ({src, alt, title, description, buttonColor, buttonText}) => 
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" variant='outlined' color={buttonColor}>
+        <Button onClick={openModal ? () => setOpenDetails(true) : () => navigate(link)} size="small" variant='outlined' color={buttonColor}>
           {buttonText}
         </Button>
       </CardActions>
+      <NutrientDetailsDialog open={openDetails} onClose={() => setOpenDetails(false)} />
     </Card>
   );
 }

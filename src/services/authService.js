@@ -3,6 +3,7 @@ import { API_URL } from "./baseService"
 import { toast } from "material-react-toastify";
 
 export const login = async (emailOrUsername, password, rememberMe) => {
+    debugger;
     var model = { emailOrUsername, password, rememberMe }
     axios.post(`${API_URL}/auth/login`, {
         model
@@ -72,6 +73,7 @@ export const refreshTokenLogin = () => {
         })
         .catch(error => {
             console.log(error);
+            logout();
         })
 }
 export const logout = () => {
