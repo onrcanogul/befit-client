@@ -1,5 +1,6 @@
 import { toast } from "material-react-toastify";
 import { API_URL, deleteRequest, postRequest, putRequest } from "./baseService"
+import axios from "axios";
 
 export const addBasketItem = async (nutrientId, userId, grammage) => {
     const model = { nutrientId, userId, grammage }
@@ -22,7 +23,7 @@ export const updateBasketItem = async (id, nutrientId, measure) => {
 }
 
 export const removeBasketItem = async (id) => {
-    const response = await deleteRequest(`${API_URL}/basketItem`, { id }, true);
+    const response = await axios.delete(`${API_URL}/basketItem/${id}`);
     if (response.data.isSuccessful) {
         toast.success("Nutrient successfully removed from basket")
         return response.data;

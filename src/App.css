@@ -1,37 +1,45 @@
-*{
-    padding: 0px;
-    margin: 0px;
+* {
+  padding: 0px;
+  margin: 0px;
 }
 
-.login-button{
-    color: aqua;
+.login-button {
+  color: aqua;
 }
 .quote {
-    border: 1px solid lightgray; /* Hafif bir kenarlık */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1); /* Yumuşak gölge efekti */
-    padding: 20px; /* İç boşluk */
-    border-radius: 8px; /* Kenarları yuvarlatma */
-    background-color: white; /* Arka planı beyaz yapma */
-    transition: box-shadow 0.3s ease; /* Hover efektine geçiş animasyonu ekle */
+  border: 1px solid lightgray; /* Hafif bir kenarlık */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1); /* Yumuşak gölge efekti */
+  padding: 20px; /* İç boşluk */
+  border-radius: 8px; /* Kenarları yuvarlatma */
+  background-color: white; /* Arka planı beyaz yapma */
+  transition: box-shadow 0.3s ease; /* Hover efektine geçiş animasyonu ekle */
 }
 
 .quote:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.2); /* Hover olduğunda gölgeyi büyütme */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.2); /* Hover olduğunda gölgeyi büyütme */
 }
 
-.category-card{
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-    margin-top: 5px;
+.category-card {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
 }
 .sticky-header {
-    position: sticky; /* Yapışkan pozisyon */
-    top: 0; /* Üst kenara yapıştır */
-    background-color: white; /* Arka plan rengi */
-    z-index: 1000; /* Diğer içeriklerin üstünde görünmesi için */
-    padding: 10px; /* İçerik için boşluk */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Gölge efekti (isteğe bağlı) */
+  position: sticky; /* Yapışkan pozisyon */
+  top: 0; /* Üst kenara yapıştır */
+  background-color: white; /* Arka plan rengi */
+  z-index: 1000; /* Diğer içeriklerin üstünde görünmesi için */
+  padding: 10px; /* İçerik için boşluk */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Gölge efekti (isteğe bağlı) */
+}
+.fade-out {
+  opacity: 1;
+  transition: opacity 0.3s ease-out;
+}
+
+.fade-out.hide {
+  opacity: 0;
 }

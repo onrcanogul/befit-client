@@ -9,10 +9,20 @@ export const getBasket = async (userId) => {
     toast.error(response.data.error[0])
 }
 
+export const saveBasket = async (basketId, newItems) => {
+    const model = { basketId, newItems }
+    const response = await postRequest(`${API_URL}/basket/save`, { model }, true);
+    if (response.data.isSuccessful) {
+        toast.success("Basket saved successfully");
+        return response.data;
+    }
+    toast.error(response.data.error[0]);
+}
+
 export const clearBasket = async (userId) => {
     const response = await postRequest(API_URL, userId, true);
     if (response.data.isSuccessful) {
-        toast.success("Basket successfully cleared")
+        toast.success("Basket successfully cleared");
         return response.data;
     }
     toast.error(response.data.error[0])

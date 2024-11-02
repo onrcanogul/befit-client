@@ -28,11 +28,11 @@ export const putRequest = async (endpoint = API_URL, data, auth) => {
         return await axios.post(endpoint, data);
 }
 export const deleteRequest = async (endpoint = API_URL, data, auth) => {
-    if (auth) return await axios.delete(endpoint + (data ? data : ""), auth ? {
+    if (auth) return await axios.delete(endpoint + (data ? data : ""), {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`
         }
-    } : "");
+    });
     else
-        return await axios.post(endpoint, data);
+        return await axios.delete(endpoint + data);
 }

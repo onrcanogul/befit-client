@@ -2,23 +2,45 @@ import React from 'react'
 import { Button, Dialog, DialogContent, DialogTitle, DialogActions, Typography, Grid, Paper } from '@mui/material'
 import CalorieBasketTable from './CalorieBasketTable';
 import Alert from '@mui/material/Alert';
-import CheckIcon from '@mui/icons-material/Check';
-import { getBasket } from '../../../services/basketService';
+import { getBasket, saveBasket } from '../../../services/basketService';
 import { currentUserId } from '../../../services/authService';
+import { removeBasketItem } from '../../../services/basketItemService';
+import InfoIcon from '@mui/icons-material/Info';
 
 
 const CalorieBasketDialog = ({ open, onClose }) => {
   const [basket, setBasket] = React.useState({});
+  const [nutrients, setNutrients] = React.useState([]);
+
+
+
   React.useEffect(() => {
     const fetchData = async () => {
+      debugger;
       const response = await getBasket(currentUserId());
-      console.log(response);
       setBasket(response.data);
+      setNutrients(response.data.nutrients);
     };
     if (open) {
       fetchData();
     }
   }, [open]);
+
+
+  const remove = async (id) => {
+    const response = await removeBasketItem(id);
+    if (response.isSuccessful)
+      setBasket((await getBasket(currentUserId())).data)
+    return response;
+  }
+
+  const save = async () => {
+    const response = await saveBasket(basket.id, nutrients);
+    setBasket(response.data);
+    setNutrients(response.data.nutrients);
+    console.log(response.data);
+  }
+
   return (
     <div>
       <Dialog open={open} onClose={onClose} maxWidth={'xl'} fullWidth>
@@ -26,7 +48,7 @@ const CalorieBasketDialog = ({ open, onClose }) => {
           Günlük Kalori Miktarınızı Görebilirsiniz.
         </DialogTitle>
         <DialogContent>
-          <CalorieBasketTable nutrients={basket.nutrients} />
+          <CalorieBasketTable nutrients={nutrients} setNutrients={setNutrients} remove={remove} />
           <br />
           <Grid container spacing={2}>
             <Grid item xs={6}>
@@ -50,13 +72,14 @@ const CalorieBasketDialog = ({ open, onClose }) => {
             </Grid>
           </Grid>
 
-          <Alert icon={<CheckIcon fontSize="inherit" />} severity="success" style={{ marginTop: '20px' }}>
-            Kaydettikten sonra ilgili alanlar güncellenecektir :)
+
+          <Alert icon={<InfoIcon fontSize="inherit" />} severity="info" style={{ marginTop: '20px' }}>
+            Values ​​are valid for recorded measurements. After saving, the relevant fields will be updated :)
           </Alert>
         </DialogContent>
         <DialogActions>
-          <Button variant='contained' color='success' autoFocus>
-            Kaydet
+          <Button variant='contained' color='success' autoFocus onClick={save}>
+            Save
           </Button>
         </DialogActions>
       </Dialog>

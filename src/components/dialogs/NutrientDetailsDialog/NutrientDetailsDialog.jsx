@@ -1,15 +1,14 @@
 import * as React from 'react';
-import { Button } from '@mui/material';
-import { Dialog, DialogTitle, DialogContent, Grid, List, ListItem, Typography, DialogActions } from '@mui/material';
+import { Dialog, Button, DialogTitle, DialogContent, Grid, List, ListItem, Typography, DialogActions, TextField, InputAdornment } from '@mui/material';
 import { addBasketItem } from '../../../services/basketItemService';
 import { currentUserId } from '../../../services/authService';
 import { toast } from 'material-react-toastify';
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
+
+
+const image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlOCLu7pWFq6Yh4Mk70QKP6-7MfHpWerVgWw&s"
 
 export default function NutrientDetails({ open, onClose, nutrient }) {
-    const [grammage, setGrammage] = React.useState(0);
-    const image = 'asd';
+    const [grammage, setGrammage] = React.useState(null);
     const handleAddToDailyClick = async () => {
         if (grammage <= 0) {
             toast.error("Grammage should have greater than 0")
@@ -60,7 +59,36 @@ export default function NutrientDetails({ open, onClose, nutrient }) {
                                 <img
                                     src={image}
                                     alt="Nutrient"
-                                    style={{ width: '100%', height: 'auto', borderRadius: '10px' }}
+                                    style={{ width: '100%', height: '300px', borderRadius: '10px' }}
+                                />
+                            </ListItem>
+                            <ListItem style={{ display: 'flex', justifyContent: 'flex-start' }}>
+                                <input
+                                    id="outlined-start-adornment"
+                                    style={{
+                                        margin: '8px',
+                                        width: '15ch',
+                                        padding: '10px',
+                                        border: '2px solid #ccc',
+                                        borderRadius: '4px',
+                                        fontSize: '16px',
+                                        color: '#333',
+                                        outline: 'none',
+                                        transition: 'border-color 0.3s, box-shadow 0.3s',
+                                        boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+                                    }}
+                                    placeholder='Grammage'
+                                    value={grammage}
+                                    color='success'
+                                    onChange={(e) => setGrammage(e.target.value)}
+                                    onFocus={(e) => {
+                                        e.target.style.borderColor = '#aaa';
+                                        e.target.style.boxShadow = '0 0 5px rgba(170, 170, 170, 0.5)';
+                                    }}
+                                    onBlur={(e) => {
+                                        e.target.style.borderColor = '#ccc';
+                                        e.target.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
+                                    }}
                                 />
                             </ListItem>
                         </List>
@@ -94,25 +122,13 @@ export default function NutrientDetails({ open, onClose, nutrient }) {
             </DialogContent>
 
             <DialogActions>
-                <TextField
-                    label="Grammage"
-                    id="outlined-start-adornment"
-                    sx={{ m: 1, width: '15ch' }}
-                    value={grammage}
-                    color='success'
-                    onChange={(e) => setGrammage(e.target.value)}
-                    slotProps={{
-                        input: {
-                            startAdornment: <InputAdornment position="start">g</InputAdornment>,
-                        },
-                    }}
-                />
-                <Button variant='contained' color='error' autoFocus onClick={() => onClose()}>
+                <Button variant='outlined' style={{ alignContent: 'end' }} color='error' autoFocus onClick={() => onClose()}>
                     Close
                 </Button>
                 <Button variant='contained' color='success' autoFocus onClick={handleAddToDailyClick}>
-                    Add To Daily Calorie
+                    Add To Basket
                 </Button>
+
             </DialogActions>
         </Dialog>
     );
