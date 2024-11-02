@@ -22,7 +22,7 @@ export default function NutrientDetails({ open, onClose, nutrient }) {
     }
     const handleClose = () => {
         setGrammage(0);
-        handleClose();
+        onClose();
     };
     return (
         <Dialog

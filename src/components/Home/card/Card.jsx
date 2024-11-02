@@ -38,9 +38,10 @@ const CustomCard = ({ src, alt, title, description, buttonColor, buttonText, lin
           {buttonText}
         </Button>
       </CardActions>
-      <Suspense fallback={<div>Loading...</div>}>
-        <NutrientDetailsDialog open={openDetails} nutrient={nutrient} onClose={() => setOpenDetails(false)} />
-      </Suspense>
+      {nutrient ? <Suspense fallback={<div>Loading...</div>}>
+        <NutrientDetailsDialog nutrient={nutrient} open={openDetails} onClose={() => setOpenDetails(false)} />
+      </Suspense> : ""}
+
     </Card>
   );
 }
