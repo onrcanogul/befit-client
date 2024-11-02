@@ -7,10 +7,10 @@ import Button from '@mui/material/Button';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
 import { useNavigate } from 'react-router-dom';
-import CalorieBasketDialog from '../../dialogs/CalorieBasketDialog/CalorieBasketDialog';
-import NutrientDetailsDialog from '../../dialogs/NutrientDetailsDialog/NutrientDetailsDialog'
+import { Suspense } from 'react';
+const NutrientDetailsDialog = React.lazy(() => import('../../dialogs/NutrientDetailsDialog/NutrientDetailsDialog'))
 
-const CustomCard = ({ src, alt, title, description, buttonColor, buttonText, link, openModal }) => {
+const CustomCard = ({ src, alt, title, description, buttonColor, buttonText, link, openModal, nutrient }) => {
   const navigate = useNavigate();
   const [openDetails, setOpenDetails] = React.useState(false)
 
@@ -38,7 +38,9 @@ const CustomCard = ({ src, alt, title, description, buttonColor, buttonText, lin
           {buttonText}
         </Button>
       </CardActions>
-      <NutrientDetailsDialog open={openDetails} onClose={() => setOpenDetails(false)} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <NutrientDetailsDialog open={openDetails} nutrient={nutrient} onClose={() => setOpenDetails(false)} />
+      </Suspense>
     </Card>
   );
 }

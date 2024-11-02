@@ -12,8 +12,9 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import CalorieBasketDialog from '../dialogs/CalorieBasketDialog/CalorieBasketDialog';
 import { useNavigate } from 'react-router-dom';
+import { Suspense } from 'react';
+const CalorieBasketDialog = React.lazy(() => import("../dialogs/CalorieBasketDialog/CalorieBasketDialog"))
 
 const pages = ['Nutrients', 'Pricing', 'Blog'];
 const Header = () => {
@@ -166,7 +167,9 @@ const Header = () => {
         </Box>
       </Toolbar>
     </Container>
-    <CalorieBasketDialog open={openCBDialog} onClose={handleCloseCBDialog} />
+    <Suspense>
+      <CalorieBasketDialog open={openCBDialog} onClose={handleCloseCBDialog} />
+    </Suspense>
   </AppBar>
   )
 

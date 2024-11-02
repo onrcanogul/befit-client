@@ -9,3 +9,11 @@ export const getNutrients = async (page, size) => {
     }
     toast.error(response.data.error[0])
 }
+
+export const getNutrientById = async (id) => {
+    const response = await axios.get(`${API_URL}/nutrient/${id}`);
+    if (response.data.isSuccessful) {
+        return response.data;
+    }
+    toast.error(response.data.error[0]);
+}

@@ -40,11 +40,10 @@ const Nutrients = () => {
                     <Alert severity="info">Özelliklerini kıyaslamak istediğiniz ürünleri aşağıdan görebilirsiniz, günlük kalorinizle karşılaştırmak istiyorsanız, detay butonuna basıp günlük kalorilere ekle butonuna basınız.</Alert>
                 </Grid>
             </Grid>
-            {/* iterate array */}
             <Grid container spacing={2} alignItems="center" justifyContent={'center'}>
                 {nutrients.map((n, index) => {
                     console.log(n);
-                    return <CardNutrients name={n.name} description={n.description} />
+                    return <CardNutrients name={n.name} description={n.description} nutrient={n} />
                 })}
             </Grid>
         </div>

@@ -1,8 +1,9 @@
 import { toast } from "material-react-toastify";
 import { API_URL, deleteRequest, postRequest, putRequest } from "./baseService"
 
-export const addBasketItem = async (nutrientId, basketId, grammage) => {
-    const response = await postRequest(`${API_URL}/basketItem`, { nutrientId, basketId, grammage }, true);
+export const addBasketItem = async (nutrientId, userId, grammage) => {
+    const model = { nutrientId, userId, grammage }
+    const response = await postRequest(`${API_URL}/basketItem`, { model }, false);
     if (response.data.isSuccessful) {
         toast.success("Nutrient successfully added")
         return response.data;
